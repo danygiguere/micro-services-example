@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "f45776ee-ee45-495b-93f1-578edc3e48ae",
+		"name": "microservise-example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1510588"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/posts-service/posts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/posts-service/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"posts-service",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

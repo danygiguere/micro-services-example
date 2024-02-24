@@ -1,8 +1,8 @@
-# Microservices example with Eureka Service, an Api Gateway, a user micro-service and a post micro-service (using Spring Boot with Kotlin Coroutines, r2dbc and JWT)
+# Microservices example with Eureka Service, an Api Gateway and micro services (using Spring Boot with Kotlin Coroutines, r2dbc and JWT)
 
 ### About
 
-- This is just a demo project to demonstrate how to build microservices with Eureka Service, an Api Gateway, a user micro-service and a post micro-service (using Spring Boot with Kotlin Coroutines, r2dbc and JWT).
+- This is just a demo project to demonstrate how to build microservices with Eureka Service, an Api Gateway and micro services (using Spring Boot with Kotlin Coroutines, r2dbc and JWT).
 
 ##### Eureka Server
 - https://cloud.spring.io/spring-cloud-netflix/reference/html/
