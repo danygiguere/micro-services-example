@@ -11,16 +11,18 @@
 ##### API Gateway
 - The api gateway is linked to the Eureka Server and will reroute all requests to the appropriate micro service.
 - For instance a request to `http://localhost:8080/posts-service/posts` (where port 8080 is the API Gateway), will reroute the request to the posts-service at the `/posts` route
+- Each time we add a route in a micro service, we need to map it in the application.yml (as a route)
 
 ### Installation
-- To install this project, make sure you have a mysql database running (Or you can use this dockerized db: https://github.com/danygiguere/docker_db), then start first the  eureka-server, then the api-gateway and then the micro services (users and posts). I'm not adding the h2 in-memory database to this example project.
-- To see the eureka-server go to http://localhost:8010/ to see the api gateway and microservices instances registered with Eureka.
-- Then you can use the postman collection (in the postman folder) and you can do (for instance) a get request to http://localhost:8080/posts-service/posts.
-- Note that the api-gateway is running on port 8080. The `/posts-service` is the micro service name (`spring.application.name`) that you want to call and the `/posts` is the route you want to reach in the microservice.
+- To install this project, make sure you have a mysql database running (Or you can use this dockerized db: https://github.com/danygiguere/docker_db).
+- Create two database: micro-services-example-users-service and micro-services-example-posts-service
+- Then start first the eureka-server, then the api-gateway and then the micro services (I'm not adding the h2 in-memory database to this example project).
+- If you want to see the eureka-server go to http://localhost:8010/ where you will see the api gateway and microservices instances registered with Eureka Server.
+- Then you can use the postman collection (in the postman folder) and you can do (for instance) a GET request to http://localhost:8080/posts-service/posts.
+- Note that the api-gateway is running on port 8080. The `/posts-service` part is the micro service name (`spring.application.name`) that you want to call and the `/posts` part is the route you want to reach in the microservice.
 
 
 ### Todo
-- create a user service
 - add jwt and implement Login and register and refresh token
 - add a config server
 - block micro services so they only accept requests from the API Gateway

@@ -16,6 +16,14 @@ spring:
           lower-case-service-id: true
 
       routes[0]:
+        id: users-id-get
+        uri: lb://users-service
+        predicates[0]: Path=/users-service/users/{user-id}
+        predicates[1]: Method=GET
+        filters[0]: RemoveRequestHeader=Cookie
+        filters[1]: RewritePath=/users-service/(?<segment>.*), /$\{segment}
+
+      routes[1]:
         id: posts-get
         uri: lb://posts-service
         predicates[0]: Path=/posts-service/posts

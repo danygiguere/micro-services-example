@@ -10,11 +10,11 @@ eureka:
 
 spring:
   application:
-    name: posts-service
+    name: users-service
 
   r2dbc:
     url: r2dbc:mysql://localhost:3306
-    name: micro-services-example-posts-service
+    name: micro-services-example-users-service
     username: root
     password: root
     pool:
@@ -29,7 +29,7 @@ spring:
       max-acquire-time: 5
       max-life-time: 15
   flyway:
-    url: jdbc:mysql://localhost:3306/micro-services-example-posts-service
+    url: jdbc:mysql://localhost:3306/micro-services-example-users-service
     user: ${spring.r2dbc.username}
     password: ${spring.r2dbc.password}
     baseline-on-migrate: true
