@@ -20,8 +20,8 @@ class RegisterRequest(
     @get:Email(message = "{email}")
     val email: String,
 
-    @JsonIgnore()
-    private val password: String
+//    @JsonIgnore()
+    val password: String
 ) {
 
 }

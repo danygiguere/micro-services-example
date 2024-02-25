@@ -1,5 +1,6 @@
 package com.example.usersservice.user
 
+import com.example.usersservice.requests.RegisterRequest
 import com.example.usersservice.user.dto.UserDto
 import com.example.usersservice.user.dto.toEntity
 import kotlinx.coroutines.reactor.awaitSingle
@@ -33,4 +34,20 @@ class UserRepository(private val databaseClient: DatabaseClient,
                         userEntity.toDto()
                     }
                     .awaitSingle()
+
+    suspend fun register(registerRequest: RegisterRequest): UserDto =
+        databaseClient.sql("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)")
+            .filter { statement, _ -> statement.returnGeneratedValues("id").execute() }
+            .bind("username", registerRequest.username)
+            .bind("email", registerRequest.email)
+            .bind("password", registerRequest.password)
+            .fetch()
+            .first()
+            .map { row ->
+                val id = row["id"] as Long
+                val userDto = UserDto(id, registerRequest.username, registerRequest.email)
+                val userEntity = userDto.toEntity().copy(id = id)
+                userEntity.toDto()
+            }
+            .awaitSingle()
 }

@@ -100,6 +100,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8080/users-service/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"john.doe\",\n    \"email\": \"john.doe@test.com\",\n    \"password\": \"mysercret\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users-service/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users-service",
+						"register"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
