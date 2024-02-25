@@ -4,11 +4,18 @@ import com.example.postsservice.post.dto.PostDto
 import com.example.postsservice.post.dto.PostWithImagesDto
 import jakarta.validation.Valid
 import kotlinx.coroutines.flow.Flow
+import org.springframework.core.env.Environment
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class PostController(private val postService: PostService) {
+class PostController(private val postService: PostService,
+                     private val env: Environment? = null) {
+
+    @GetMapping("/status/check")
+    fun statusCheck(): String {
+        return "Posts api is working on port " + env?.getProperty("local.server.port")
+    }
 
     @GetMapping("/posts")
     suspend fun getAll(): ResponseEntity<Flow<PostDto>?> {

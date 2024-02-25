@@ -11,8 +11,7 @@ class UserMapper: BiFunction<Row, Any, UserDto> {
         val userEntity = UserEntity(
                 row.get("id") as Long,
                 row.get("username") as String,
-                row.get("email") as String,
-                row.get("phoneNumber") as String,
+                row.get("email") as String
         ).toDto()
         return userEntity;
     }

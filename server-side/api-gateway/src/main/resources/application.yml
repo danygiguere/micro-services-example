@@ -16,14 +16,30 @@ spring:
           lower-case-service-id: true
 
       routes[0]:
-        id: users-id-get
+        id: users-status-check-get
+        uri: lb://users-service
+        predicates[0]: Path=/users-service/status/check
+        predicates[1]: Method=GET
+        filters[0]: RemoveRequestHeader=Cookie
+        filters[1]: RewritePath=/users-service/(?<segment>.*), /$\{segment}
+
+      routes[1]:
+        id: users-userid-get
         uri: lb://users-service
         predicates[0]: Path=/users-service/users/{user-id}
         predicates[1]: Method=GET
         filters[0]: RemoveRequestHeader=Cookie
         filters[1]: RewritePath=/users-service/(?<segment>.*), /$\{segment}
 
-      routes[1]:
+      routes[2]:
+        id: posts-status-check-get
+        uri: lb://posts-service
+        predicates[0]: Path=/posts-service/status/check
+        predicates[1]: Method=GET
+        filters[0]: RemoveRequestHeader=Cookie
+        filters[1]: RewritePath=/posts-service/(?<segment>.*), /$\{segment}
+
+      routes[3]:
         id: posts-get
         uri: lb://posts-service
         predicates[0]: Path=/posts-service/posts

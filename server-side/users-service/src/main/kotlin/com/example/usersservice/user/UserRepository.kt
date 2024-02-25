@@ -21,11 +21,10 @@ class UserRepository(private val databaseClient: DatabaseClient,
                     .awaitOneOrNull()
 
     suspend fun create(userDto: UserDto): UserDto =
-            databaseClient.sql("INSERT INTO users (username, email, phoneNumber) VALUES (:username, :email, :phoneNumber)")
+            databaseClient.sql("INSERT INTO users (username, email) VALUES (:username, :email)")
                     .filter { statement, _ -> statement.returnGeneratedValues("id").execute() }
                     .bind("username", userDto.username)
                     .bind("email", userDto.email)
-                    .bind("phoneNumber", userDto.phoneNumber)
                     .fetch()
                     .first()
                     .map { row ->

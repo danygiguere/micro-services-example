@@ -1,12 +1,12 @@
-package com.example.usersservice.user.dto
+package com.example.usersservice.requests
 
-import com.example.usersservice.user.UserEntity
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
-data class UserDto(
+data class LoginRequest(
         val id: Long?,
 
         @get:NotNull()
@@ -19,9 +19,6 @@ data class UserDto(
         @get:Email(message = "{email}")
         val email: String,
 
-)
-
-fun UserDto.toEntity(): UserEntity = UserEntity(
-        username = username,
-        email = email
-)
+        @JsonIgnore()
+        private val password: String
+        )

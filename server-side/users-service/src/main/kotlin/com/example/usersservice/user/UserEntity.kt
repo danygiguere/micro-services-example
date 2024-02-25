@@ -8,12 +8,11 @@ data class UserEntity(
     @Id var id: Long? = null,
     val username: String,
     val email: String,
-    val phoneNumber: String
+    val password: String? = null
 )
 
 fun UserEntity.toDto(): UserDto = UserDto(
     id = id,
     username = username,
-    email = email,
-    phoneNumber = phoneNumber
+    email = email
 )

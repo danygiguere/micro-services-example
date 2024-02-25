@@ -6,7 +6,7 @@
 ##### Eureka Server
 - https://cloud.spring.io/spring-cloud-netflix/reference/html/
 - Using Eureka Server we will start a Eureka Sever and all the micro services will register to it.
-- Multiple instances of a micro services are load balanced.
+- Multiple instances of a micro services are load balanced. To see it in action locally, you can (for instance), open the posts service project in two IntelliJ Idead and start them. They will register with different random ports.
 
 ##### API Gateway
 - The api gateway is linked to the Eureka Server and will reroute all requests to the appropriate micro service.

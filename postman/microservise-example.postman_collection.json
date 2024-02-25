@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/posts-service/posts",
+			"name": "http://localhost:8080/users-service/status/check",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -24,6 +24,48 @@
 					}
 				},
 				"url": {
+					"raw": "http://localhost:8080/users-service/status/check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users-service",
+						"status",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/users-service/users/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users-service/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users-service",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/posts-service/posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
 					"raw": "http://localhost:8080/posts-service/posts",
 					"protocol": "http",
 					"host": [
@@ -33,6 +75,27 @@
 					"path": [
 						"posts-service",
 						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/posts-service/status/check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/posts-service/status/check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"posts-service",
+						"status",
+						"check"
 					]
 				}
 			},
