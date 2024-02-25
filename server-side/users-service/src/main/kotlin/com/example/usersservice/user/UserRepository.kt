@@ -1,6 +1,7 @@
 package com.example.usersservice.user
 
 import com.example.usersservice.requests.RegisterRequest
+import com.example.usersservice.requests.toEntity
 import com.example.usersservice.user.dto.UserDto
 import com.example.usersservice.user.dto.toEntity
 import kotlinx.coroutines.reactor.awaitSingle
@@ -45,8 +46,7 @@ class UserRepository(private val databaseClient: DatabaseClient,
             .first()
             .map { row ->
                 val id = row["id"] as Long
-                val userDto = UserDto(id, registerRequest.username, registerRequest.email)
-                val userEntity = userDto.toEntity().copy(id = id)
+                val userEntity = registerRequest.toEntity().copy(id = id)
                 userEntity.toDto()
             }
             .awaitSingle()

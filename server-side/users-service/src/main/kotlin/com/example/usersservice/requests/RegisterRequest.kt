@@ -1,5 +1,7 @@
 package com.example.usersservice.requests
 
+import com.example.usersservice.user.UserEntity
+import com.example.usersservice.user.dto.UserDto
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
@@ -25,3 +27,9 @@ class RegisterRequest(
 ) {
 
 }
+
+fun RegisterRequest.toEntity(): UserEntity = UserEntity(
+    username = username,
+    email = email,
+    password = password
+)
