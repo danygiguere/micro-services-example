@@ -44,3 +44,8 @@ logging:
       springframework:
         web: DEBUG
 
+app:
+  token:
+    secret: SOME_RANDOM_SECRET_FOR_SIGNING_JWT
+    issuer: SOME_NAME_FOR_ISSUER_JWT
+

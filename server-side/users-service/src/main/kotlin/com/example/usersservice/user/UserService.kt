@@ -9,6 +9,9 @@ class UserService(val userRepository: UserRepository) {
     suspend fun findById(id: Long): UserDto? =
             userRepository.findById(id)
 
+    suspend fun findByEmail(email: String): UserDto? =
+        userRepository.findByEmail(email)
+
     suspend fun create(userDto: UserDto): UserDto? =
             userRepository.create(userDto)
 

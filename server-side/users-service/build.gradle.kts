@@ -34,9 +34,13 @@ dependencies {
 	implementation("org.flywaydb:flyway-mysql:10.8.1")
 	implementation("io.bloco:faker:2.0.4")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("com.auth0:java-jwt:4.4.0")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 
 	runtimeOnly("com.mysql:mysql-connector-j")
 
+	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("com.ninja-squad:springmockk:4.0.2")
