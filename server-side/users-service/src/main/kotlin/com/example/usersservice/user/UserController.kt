@@ -1,15 +1,23 @@
 package com.example.usersservice.user
 
+import com.example.usersservice.requests.LoginRequest
+import com.example.usersservice.requests.RegisterRequest
+import com.example.usersservice.requests.toUserDto
+import com.example.usersservice.security.Tokenizer
 import com.example.usersservice.user.dto.UserDto
+import jakarta.validation.Valid
 import org.springframework.core.env.Environment
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class UserController(private val userService: UserService,
-                     private val env: Environment? = null) {
+                     private val env: Environment? = null,
+                     private val tokenizer: Tokenizer,
+                     private val passwordEncoder: PasswordEncoder
+) {
 
     @GetMapping("/status/check")
     fun statusCheck(): String {
@@ -21,6 +29,31 @@ class UserController(private val userService: UserService,
         val response = userService.findById(id)
         return if (response != null) ResponseEntity.ok(response)
         else ResponseEntity.notFound().build()
+    }
+
+    @PostMapping("/register")
+    suspend fun register(@Valid @RequestBody request: RegisterRequest): ResponseEntity<UserDto> {
+        val user = userService.findByEmail(request.email)
+        if (user != null) {
+            ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists.")
+        }
+        val newUser = userService.register(request.toUserDto())
+        return if (newUser != null) {
+            ResponseEntity.ok().header("Authorization", tokenizer.createBearerToken(newUser.id)).body(newUser)
+        } else {
+            ResponseEntity.internalServerError().build()
+        }
+    }
+
+    @PostMapping("/login")
+    suspend fun login(@Valid @RequestBody request: LoginRequest): ResponseEntity<UserDto> {
+        val user = userService.findByEmail(request.email)
+        val passwordMatch = passwordEncoder.matches(request.password, user?.password)
+        return if (user != null && passwordMatch) {
+            ResponseEntity.ok().header("Authorization", tokenizer.createBearerToken(user.id)).body(user)
+        } else {
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        }
     }
 
 }

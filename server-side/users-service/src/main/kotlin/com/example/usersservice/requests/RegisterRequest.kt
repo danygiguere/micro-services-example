@@ -1,6 +1,6 @@
 package com.example.usersservice.requests
 
-import com.example.usersservice.user.UserEntity
+import com.example.usersservice.user.dto.UserDto
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
@@ -25,7 +25,8 @@ class RegisterRequest(
     val password: String
 )
 
-fun RegisterRequest.toEntity(): UserEntity = UserEntity(
+fun RegisterRequest.toUserDto(): UserDto = UserDto(
+    id = id,
     username = username,
     email = email,
     password = password

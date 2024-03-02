@@ -21,11 +21,11 @@ class Tokenizer {
     @Value("\${app.token.expires-minute}")
     private val expires = 0
 
-    fun createBearerToken(userId: String?): String {
+    fun createBearerToken(userId: Long?): String {
         return "Bearer " + tokenize(userId)
     }
 
-    fun tokenize(userId: String?): String {
+    fun tokenize(userId: Long?): String {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.MINUTE, expires)
         val expiresAt: Date = calendar.time

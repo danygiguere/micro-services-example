@@ -32,6 +32,14 @@ spring:
         filters[1]: RewritePath=/users-service/(?<segment>.*), /$\{segment}
 
       routes[2]:
+        id: users-login-post
+        uri: lb://users-service
+        predicates[0]: Path=/users-service/login
+        predicates[1]: Method=POST
+        filters[0]: RemoveRequestHeader=Cookie
+        filters[1]: RewritePath=/users-service/(?<segment>.*), /$\{segment}
+
+      routes[3]:
         id: users-userid-get
         uri: lb://users-service
         predicates[0]: Path=/users-service/users/{user-id}
@@ -39,7 +47,7 @@ spring:
         filters[0]: RemoveRequestHeader=Cookie
         filters[1]: RewritePath=/users-service/(?<segment>.*), /$\{segment}
 
-      routes[3]:
+      routes[4]:
         id: posts-status-check-get
         uri: lb://posts-service
         predicates[0]: Path=/posts-service/status/check
@@ -47,7 +55,7 @@ spring:
         filters[0]: RemoveRequestHeader=Cookie
         filters[1]: RewritePath=/posts-service/(?<segment>.*), /$\{segment}
 
-      routes[4]:
+      routes[5]:
         id: posts-get
         uri: lb://posts-service
         predicates[0]: Path=/posts-service/posts

@@ -3,8 +3,7 @@ package com.example.usersservice.factory.integration
 import com.example.usersservice.user.UserRepository
 import factory.UserFactory
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -35,6 +34,8 @@ class UserFactoryTest() {
             assertNotNull(userDto.id)
             assertNotNull(userDto.username)
             assertNotNull(userDto.email)
+            // password is @JsonIgnore() and therefore should not be returned
+            assertNull(userDto.password)
         }
     }
 
@@ -54,6 +55,7 @@ class UserFactoryTest() {
                 assertNotNull(userDto.id)
                 assertNotNull(userDto.username)
                 assertNotNull(userDto.email)
+                assertNull(userDto.password)
             }
         }
     }

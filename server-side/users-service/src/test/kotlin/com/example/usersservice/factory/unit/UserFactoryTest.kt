@@ -29,6 +29,7 @@ class UserFactoryTest {
         assertEquals(1, userDto.id)
         assertNotNull(userDto.username)
         assertNotNull(userDto.email)
+        assertNotNull(userDto.password)
     }
 
     @Test
@@ -43,6 +44,7 @@ class UserFactoryTest {
         assertEquals(userId, userDto.id)
         assertNotNull(userDto.username)
         assertNotNull(userDto.email)
+        assertNotNull(userDto.password)
     }
 
     @Test
@@ -61,6 +63,7 @@ class UserFactoryTest {
             assertEquals(id, userDto.id)
             assertNotNull(userDto.username)
             assertNotNull(userDto.email)
+            assertNotNull(userDto.password)
         }
     }
 }

@@ -10,4 +10,10 @@ class UserService(val userRepository: UserRepository) {
 
     suspend fun create(userDto: UserDto): UserDto? =
             userRepository.create(userDto)
+
+    suspend fun findByEmail(email: String): UserDto? =
+        userRepository.findByEmail(email)
+
+    suspend fun register(userDto: UserDto): UserDto? =
+        userRepository.register(userDto)
 }

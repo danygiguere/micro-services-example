@@ -10,7 +10,7 @@ class UserFactory(val userRepository: UserRepository) {
 
     fun makeOne(userId: Long? = null): UserDto {
         val name = faker.name.firstName().lowercase()+"."+faker.name.lastName().lowercase()
-        return UserDto(userId ?: 1, name, "$name@test.com")
+        return UserDto(userId ?: 1, name, "$name@test.com", "secret")
     }
 
     fun makeMany(quantities: Int): List<UserDto> {
@@ -18,10 +18,10 @@ class UserFactory(val userRepository: UserRepository) {
     }
 
     suspend fun createOne(): UserDto {
-        return userRepository.create(makeOne())
+        return userRepository.register(makeOne())
     }
 
     suspend fun createMany(quantities: Int): List<UserDto> {
-        return (0 until quantities).map { userRepository.create(makeOne()) }
+        return (0 until quantities).map { userRepository.register(makeOne()) }
     }
 }

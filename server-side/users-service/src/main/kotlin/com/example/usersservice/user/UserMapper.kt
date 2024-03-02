@@ -11,7 +11,8 @@ class UserMapper: BiFunction<Row, Any, UserDto> {
         return UserEntity(
                 row.get("id") as Long,
                 row.get("username") as String,
-                row.get("email") as String
+                row.get("email") as String,
+                row.get("password") as String
         ).toUserDto()
     }
 }
