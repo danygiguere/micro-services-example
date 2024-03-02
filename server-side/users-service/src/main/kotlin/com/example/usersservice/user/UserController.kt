@@ -6,6 +6,7 @@ import com.example.usersservice.requests.toUserDto
 import com.example.usersservice.security.Tokenizer
 import com.example.usersservice.user.dto.UserDto
 import jakarta.validation.Valid
+import mu.KLogging
 import org.springframework.core.env.Environment
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,6 +19,8 @@ class UserController(private val userService: UserService,
                      private val tokenizer: Tokenizer,
                      private val passwordEncoder: PasswordEncoder
 ) {
+
+    companion object: KLogging()
 
     @GetMapping("/status/check")
     fun statusCheck(): String {
@@ -33,15 +36,15 @@ class UserController(private val userService: UserService,
 
     @PostMapping("/register")
     suspend fun register(@Valid @RequestBody request: RegisterRequest): ResponseEntity<UserDto> {
-        val user = userService.findByEmail(request.email)
-        if (user != null) {
+        if (userService.findByEmail(request.email) != null) {
             ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists.")
         }
         val newUser = userService.register(request.toUserDto())
         return if (newUser != null) {
             ResponseEntity.ok().header("Authorization", tokenizer.createBearerToken(newUser.id)).body(newUser)
         } else {
-            ResponseEntity.internalServerError().build()
+            logger.error("Error while registering user with email: ${request.email}")
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
         }
     }
 
