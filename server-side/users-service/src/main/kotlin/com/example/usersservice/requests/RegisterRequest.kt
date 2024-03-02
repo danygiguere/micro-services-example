@@ -19,11 +19,11 @@ class RegisterRequest(
     @get:Email(message = "{email}")
     val email: String,
 
-//    @JsonIgnore()
+    @get:NotNull()
+    @get:NotEmpty()
+    @get:Size(min = 8, max = 25, message = "{password.size}")
     val password: String
-) {
-
-}
+)
 
 fun RegisterRequest.toEntity(): UserEntity = UserEntity(
     username = username,

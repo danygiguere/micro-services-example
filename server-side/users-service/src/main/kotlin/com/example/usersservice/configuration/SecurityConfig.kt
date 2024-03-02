@@ -30,6 +30,8 @@ class SecurityConfig(private val securityContextRepository: SecurityContextRepos
             .authorizeExchange {
                 it.pathMatchers("/status/check").permitAll()
                     .pathMatchers("/register").permitAll()
+                    .pathMatchers("/login").permitAll()
+                    .pathMatchers("/**").permitAll()
                     .anyExchange().authenticated()
             }
             .build()

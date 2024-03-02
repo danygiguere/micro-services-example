@@ -1,4 +1,5 @@
 package com.example.usersservice.user
+import com.example.usersservice.auth.AuthDto
 import com.example.usersservice.user.dto.UserDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
@@ -11,8 +12,15 @@ data class UserEntity(
     val password: String? = null
 )
 
-fun UserEntity.toDto(): UserDto = UserDto(
+fun UserEntity.toUserDto(): UserDto = UserDto(
     id = id,
     username = username,
     email = email
+)
+
+fun UserEntity.toAuthDto(): AuthDto = AuthDto(
+    id = id,
+    username = username,
+    email = email,
+    password = password
 )
