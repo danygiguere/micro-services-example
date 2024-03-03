@@ -1,6 +1,7 @@
 package com.example.apigateway.auth
 
 import com.auth0.jwt.exceptions.JWTDecodeException
+import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.runBlocking
 import mu.KLogging
 import org.springframework.cloud.gateway.filter.GatewayFilter
@@ -33,6 +34,21 @@ class AuthorizationHeaderFilter(private val tokenizer: Tokenizer) : AbstractGate
     private fun onError(exchange: ServerWebExchange, httpStatus: HttpStatus): Mono<Void> {
         exchange.response.statusCode = httpStatus
         return exchange.response.setComplete()
+    }
+
+    suspend fun isJwtValid(token: String?): Boolean {
+        try {
+            val decodedJWTHasElement = tokenizer.getDecodedJWT(token).filter { decodedJWT ->
+                    !decodedJWT.issuer.isNullOrEmpty()
+                    && !decodedJWT.subject.isNullOrEmpty()
+                    && !decodedJWT.claims.isNullOrEmpty()
+                    && !decodedJWT.signature.isNullOrEmpty() }
+                .hasElement()
+                .defaultIfEmpty(false)
+            return decodedJWTHasElement.awaitSingle()
+        } catch (e: JWTDecodeException) {
+            return false
+        }
     }
 
     suspend fun isValidJWT(token: String?): Boolean {

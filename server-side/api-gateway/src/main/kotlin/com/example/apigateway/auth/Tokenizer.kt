@@ -18,6 +18,15 @@ class Tokenizer {
     @Value("\${app.token.issuer}")
     private val issuer: String? = null
 
+    fun getDecodedJWT(token: String?): Mono<DecodedJWT> {
+        try {
+            val verifier: JWTVerifier = JWT.require(algorithm()).withIssuer(issuer).build()
+            return Mono.just(verifier.verify(token))
+        } catch (e: Exception) {
+            return Mono.empty()
+        }
+    }
+
     suspend fun verify(token: String?): DecodedJWT? {
         try {
             val verifier: JWTVerifier = JWT.require(algorithm()).withIssuer(issuer).build()
