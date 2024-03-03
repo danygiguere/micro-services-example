@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.*
 class UserController(private val userService: UserService,
                      private val env: Environment? = null,
                      private val tokenizer: Tokenizer,
-                     private val passwordEncoder: PasswordEncoder
-) {
+                     private val passwordEncoder: PasswordEncoder) {
 
     companion object: KLogging()
 
@@ -35,13 +34,13 @@ class UserController(private val userService: UserService,
     }
 
     @PostMapping("/register")
-    suspend fun register(@Valid @RequestBody request: RegisterRequest): ResponseEntity<UserDto> {
+    suspend fun create(@Valid @RequestBody request: RegisterRequest): ResponseEntity<String> {
         if (userService.findByEmail(request.email) != null) {
-            ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists.")
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists.")
         }
         val newUser = userService.register(request.toUserDto())
         return if (newUser != null) {
-            ResponseEntity.ok().header("Authorization", tokenizer.createBearerToken(newUser.id)).body(newUser)
+            ResponseEntity.ok().body("An email will be sent to you. Please confirm your email by clicking the verification link provided in the email")
         } else {
             logger.error("Error while registering user with email: ${request.email}")
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()

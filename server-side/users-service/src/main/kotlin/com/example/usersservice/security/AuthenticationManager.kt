@@ -17,7 +17,7 @@ class AuthenticationManager(private val tokenizer: Tokenizer) : ReactiveAuthenti
             .filter { Objects.nonNull(it) }
             .flatMap { credential -> tokenizer.verify(credential as String) }
             .flatMap { decodedJWT ->
-                val userId = decodedJWT.getClaim("principal").asString()
+                val userId = decodedJWT.subject
                 val role = decodedJWT.getClaim("role").asString()
                 val authorities = listOf(SimpleGrantedAuthority(role))
                 Mono.just(UsernamePasswordAuthenticationToken(userId, null, authorities))

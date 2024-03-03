@@ -44,8 +44,10 @@ spring:
         uri: lb://users-service
         predicates[0]: Path=/users-service/users/{user-id}
         predicates[1]: Method=GET
+#        predicates[2]: Header=Authorization, Bearer (.*) // it won't send the request if there is no token, but it returns a 404
         filters[0]: RemoveRequestHeader=Cookie
         filters[1]: RewritePath=/users-service/(?<segment>.*), /$\{segment}
+        filters[2]: AuthorizationHeaderFilter
 
       routes[4]:
         id: posts-status-check-get

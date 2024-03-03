@@ -22,29 +22,25 @@ class Tokenizer {
     private val expires = 0
 
     fun createBearerToken(userId: Long?): String {
-        return "Bearer " + tokenize(userId)
+        return "Bearer " + tokenize(userId.toString())
     }
 
-    fun tokenize(userId: Long?): String {
+    fun tokenize(userId: String?): String {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.MINUTE, expires)
         val expiresAt: Date = calendar.time
 
         return JWT.create()
-
             .withIssuer(issuer)
-
-            .withClaim("principal", userId)
-
+            .withSubject(userId)
             .withClaim("role", "USER")
-
             .withExpiresAt(expiresAt)
-
             .sign(algorithm())
     }
 
     fun verify(token: String?): Mono<DecodedJWT> {
         try {
+            //TODO verify other params
             val verifier: JWTVerifier = JWT.require(algorithm()).withIssuer(issuer).build()
             return Mono.just(verifier.verify(token))
         } catch (e: Exception) {

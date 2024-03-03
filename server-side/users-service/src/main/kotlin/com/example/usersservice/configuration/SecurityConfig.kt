@@ -26,13 +26,13 @@ class SecurityConfig(private val securityContextRepository: SecurityContextRepos
             .csrf { it.disable() }
             .formLogin { it.disable() }
             .httpBasic { it.disable() }
-            .securityContextRepository(securityContextRepository)
+//            .securityContextRepository(securityContextRepository)
             .authorizeExchange {
                 it.pathMatchers("/status/check").permitAll()
                     .pathMatchers("/register").permitAll()
                     .pathMatchers("/login").permitAll()
-                    .pathMatchers("/**").permitAll()
-                    .anyExchange().authenticated()
+                    .anyExchange()
+//                    .anyExchange().authenticated()
             }
             .build()
     }

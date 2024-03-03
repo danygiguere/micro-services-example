@@ -46,6 +46,6 @@ logging:
 
 app:
   token:
-    secret: SOME_RANDOM_SECRET_FOR_SIGNING_JWT
-    issuer: SOME_NAME_FOR_ISSUER_JWT
-    expires-minute: 5
+    secret: RANDOM_SECRET_FOR_JWT
+    issuer: ${spring.application.name}
+    expires-minute: 60
