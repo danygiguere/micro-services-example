@@ -42,7 +42,8 @@ class Tokenizer {
         try {
             //TODO verify other params
             val verifier: JWTVerifier = JWT.require(algorithm()).withIssuer(issuer).build()
-            return Mono.just(verifier.verify(token))
+            val response = Mono.just(verifier.verify(token))
+            return response
         } catch (e: Exception) {
             return Mono.empty()
         }

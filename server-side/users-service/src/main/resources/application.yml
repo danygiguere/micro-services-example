@@ -38,9 +38,6 @@ spring:
 logging:
   level:
     org:
-      hibernate:
-        nodeValue: ERROR
-        SQL: DEBUG
       springframework:
         web: DEBUG
 
@@ -48,4 +45,4 @@ app:
   token:
     secret: RANDOM_SECRET_FOR_JWT
     issuer: ${spring.application.name}
-    expires-minute: 60
+    expires-minute: 60 * 8

@@ -29,8 +29,10 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-gateway")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 	implementation("com.auth0:java-jwt:4.4.0")
+	implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
+
 }
 
 dependencyManagement {

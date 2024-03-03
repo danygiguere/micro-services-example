@@ -65,3 +65,13 @@ spring:
         filters[0]: RemoveRequestHeader=Cookie
         filters[1]: RewritePath=/posts-service/(?<segment>.*), /$\{segment}
 
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+
+app:
+  token:
+    secret: RANDOM_SECRET_FOR_JWT
+    issuer: "users-service"
